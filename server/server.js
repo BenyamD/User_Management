@@ -1,13 +1,18 @@
 import express from "express";
-import dotenv from ("dotenv");
-import users from ("./user-data");
+import dotenv from "dotenv";
+import users from "./user-data.js";
+import cors from 'cors';
+
 //allow access env
 dotenv.config();
 
-const PORT= 3001;
+const PORT= 3002;
 
+const app = express();
 // to read json from request body
 app.use(express.json()); 
+
+app.use(cors());
 
 // Get all users 
 app.get("/users", (req, res)=>{
@@ -52,7 +57,7 @@ app.delete(("/users/:id"), (req, res)=>{
     res.send(`user with ${userId} deleted`);
 });
 
-app.listen(PORT, ()=>{
+app.listen(PORT,'127.0.0.1', ()=>{
     console.log(`Server running on http://localhost:${PORT}`)
 }
 );
